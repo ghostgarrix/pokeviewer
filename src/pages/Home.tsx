@@ -25,7 +25,7 @@ const FETCH_LIMIT = 100;
 
 export const HomePage = (props: HomePageProps): React.ReactElement | null => {
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
-  const [searchfeild, setSearchfeild] = useState<string>("");
+  const [searchFeild, setSearchFeild] = useState<string>("");
 
   const fetchPokemons = () => {
     fetch(`https://pokeapi.co/api/v2/pokemon?limit=${FETCH_LIMIT}`)
@@ -77,13 +77,13 @@ export const HomePage = (props: HomePageProps): React.ReactElement | null => {
         style={HomeStyles.searchfeild}
         placeholder="Search Pokemons"
         clearButtonMode="always"
-        onChangeText={(value) => setSearchfeild(value)}
-        value={searchfeild}
+        onChangeText={(value) => setSearchFeild(value)}
+        value={searchFeild}
       />
       <FlatList
         style={{ paddingTop: 10 }}
         data={pokemons.filter((pokemon) =>
-          pokemon.name.toLowerCase().includes(searchfeild.toLowerCase())
+          pokemon.name.toLowerCase().includes(searchFeild.toLowerCase())
         )}
         numColumns={2}
         renderItem={renderPokemon}
