@@ -14,7 +14,7 @@ export const DetailsStyles = StyleSheet.create({
     height: IMAGE_HEIGHT,
     alignSelf: "center",
     borderWidth: 0.5,
-    borderColor: COLORS.primary,
+    borderColor: COLORS.tertiary,
     borderRadius: IMAGE_WIDTH / 2,
     marginBottom: 20,
     backgroundColor: COLORS.fields,

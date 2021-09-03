@@ -8,9 +8,10 @@ import {
   FlatList,
   ImageBackground,
   View,
+  TextInput,
 } from "react-native";
 import { AppStackParamList, AppStackRoutes } from "../router/routes";
-import * as Haptics from 'expo-haptics';
+import * as Haptics from "expo-haptics";
 
 import { HomeStyles } from "./Home.styles";
 import { Pokemon } from "./types";
@@ -20,11 +21,14 @@ type HomePageProps = {
   route: RouteProp<AppStackParamList, AppStackRoutes.Home>;
 };
 
+const FETCH_LIMIT = 100;
+
 export const HomePage = (props: HomePageProps): React.ReactElement | null => {
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
+  const [searchfeild, setSearchfeild] = useState<string>("");
 
   const fetchPokemons = () => {
-    fetch("https://pokeapi.co/api/v2/pokemon?limit=100")
+    fetch(`https://pokeapi.co/api/v2/pokemon?limit=${FETCH_LIMIT}`)
       .then((response) => response.json())
       .then((pokemons) => setPokemons(pokemons.results));
   };
@@ -68,11 +72,22 @@ export const HomePage = (props: HomePageProps): React.ReactElement | null => {
   );
 
   return (
-    <FlatList
-      style={{ paddingTop: 10 }}
-      data={pokemons}
-      numColumns={2}
-      renderItem={renderPokemon}
-    />
+    <>
+      <TextInput
+        style={HomeStyles.searchfeild}
+        placeholder="Search Pokemons"
+        clearButtonMode="always"
+        onChangeText={(value) => setSearchfeild(value)}
+        value={searchfeild}
+      />
+      <FlatList
+        style={{ paddingTop: 10 }}
+        data={pokemons.filter((pokemon) =>
+          pokemon.name.toLowerCase().includes(searchfeild.toLowerCase())
+        )}
+        numColumns={2}
+        renderItem={renderPokemon}
+      />
+    </>
   );
 };

@@ -2,10 +2,14 @@ import { COLORS } from "../utils//colors";
 import { StyleSheet } from "react-native";
 
 export const HomeStyles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+  searchfeild: {
+    borderWidth: 1,
+    borderColor: COLORS.tertiary,
+    textAlign: 'center',
+    marginHorizontal: 60,
+    marginVertical: 10,
+    paddingVertical: 10,
+    borderRadius: 50
   },
   image: {
     width: 150,
