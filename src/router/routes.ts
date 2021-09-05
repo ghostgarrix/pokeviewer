@@ -1,9 +1,9 @@
 export enum AppStackRoutes {
-  Home = 'Pokemons',
+  Home = 'Home',
   Details = 'Details'
 }
 
 export type AppStackParamList = {
-  [AppStackRoutes.Home]: {};
+  [AppStackRoutes.Home]: undefined;
   [AppStackRoutes.Details]: { pokeName: string };
 };

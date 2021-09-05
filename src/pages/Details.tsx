@@ -75,7 +75,7 @@ export const DetailsPage = (
       <Image
         style={DetailsStyles.image}
         source={{
-          uri: `https://img.pokemondb.net/sprites/omega-ruby-alpha-sapphire/dex/normal/${pokeInfo.name}.png`,
+          uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokeInfo.order}.png`,
         }}
       />
       <TouchableOpacity
@@ -88,12 +88,18 @@ export const DetailsPage = (
           color={DetailsStyles.icon.color}
         />
       </TouchableOpacity>
-      <Fields title={"name"} value={pokeInfo.name} />
-      <Fields title={"height"} value={pokeInfo.height} />
-      <Fields title={"weight"} value={pokeInfo.weight} />
-      <Fields title={"abilities"} value={pokeInfo.abilities[0].ability.name} />
-      <Fields title={"types"} value={pokeInfo.types[0].type.name} />
-      <Fields title={"wikipedia"} value={link} wiki={true} />
+      <Fields title={"name"} values={[pokeInfo.name]} />
+      <Fields title={"height"} values={[pokeInfo.height]} />
+      <Fields title={"weight"} values={[pokeInfo.weight]} />
+      <Fields
+        title={"abilities"}
+        values={pokeInfo.abilities.map((abilities) => abilities.ability.name)}
+      />
+      <Fields
+        title={"types"}
+        values={pokeInfo.types.map((types) => types.type.name)}
+      />
+      <Fields title={"wikipedia"} values={[link]} wiki={true} />
     </ScrollView>
   );
 };

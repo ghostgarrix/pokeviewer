@@ -1,5 +1,5 @@
+import { COLORS } from "@src/utils/colors";
 import { StyleSheet } from "react-native";
-import { COLORS } from "../utils/colors";
 
 const IMAGE_WIDTH = 200;
 const IMAGE_HEIGHT = 200;

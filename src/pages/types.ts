@@ -21,9 +21,15 @@ export type Types = {
 
 export type PokeInfo = {
   name: string;
+  order: number;
   height: string;
   weight: string;
   abilities: Abilities[];
   types: Types[];
   location_area_encounters: string;
+};
+
+export type TypeFilter = {
+  value: string;
+  label: string;
 };

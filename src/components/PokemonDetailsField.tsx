@@ -5,14 +5,14 @@ import * as Haptics from "expo-haptics";
 
 type FieldsProps = {
   title: string;
-  value: string;
+  values: string[];
   wiki?: boolean;
 };
 
 export const PokemonDetailsField = (
   props: FieldsProps
 ): React.ReactElement | null => {
-  const { title, value, wiki } = props;
+  const { title, values, wiki } = props;
   const onPressWiki = (value: string): Promise<any> => {
     Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
     return Linking.openURL(value);
@@ -22,14 +22,20 @@ export const PokemonDetailsField = (
     <TouchableOpacity
       style={FieldsStyles.field}
       disabled={!wiki}
-      onPress={(): Promise<any> => onPressWiki(value)}
+      onPress={(): Promise<any> => onPressWiki(values[0])}
     >
       <Text style={FieldsStyles.text}>
         <Text style={[FieldsStyles.text, { fontWeight: "bold" }]}>
           {`${title.charAt(0).toUpperCase() + title.slice(1)}: `}
         </Text>
         <Text style={wiki ? FieldsStyles.linkText : FieldsStyles.text}>
-          {`${value}`}
+          {values.map((value: string, index: number): string => {
+            if (index === values.length - 1) {
+              return `${value}`;
+            } else {
+              return `${value}, `;
+            }
+          })}
         </Text>
       </Text>
     </TouchableOpacity>
