@@ -1,3 +1,5 @@
+import { Pokemon } from "@src/pages/types";
+
 export enum AppStackRoutes {
   Home = 'Home',
   Details = 'Details'
@@ -5,5 +7,5 @@ export enum AppStackRoutes {
 
 export type AppStackParamList = {
   [AppStackRoutes.Home]: undefined;
-  [AppStackRoutes.Details]: { pokeName: string };
+  [AppStackRoutes.Details]: { pokemon: Pokemon };
 };

@@ -28,8 +28,8 @@ export default function App() {
           component={DetailsPage}
           options={({ route }) => ({
             title:
-              route.params.pokeName.charAt(0).toUpperCase() +
-              route.params.pokeName.slice(1),
+              route.params.pokemon.name.charAt(0).toUpperCase() +
+              route.params.pokemon.name.slice(1),
           })}
         />
       </Stack.Navigator>

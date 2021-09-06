@@ -26,21 +26,32 @@ export const DetailsPage = (
 ): React.ReactElement | null => {
   const {
     route: {
-      params: { pokeName },
+      params: { pokemon },
     },
   } = props;
 
   const [pokeInfo, setPokeInfo] = useState<PokeInfo>();
 
   const fetchPokemonDetails = (): void => {
-    fetch(`https://pokeapi.co/api/v2/pokemon/${pokeName}`)
+    fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon.name}`)
       .then((res) => res.json())
-      .then((details) => setPokeInfo(details));
+      .then((details) => setPokeInfo(details))
+      .catch((error) => console.log(error));
   };
 
   useEffect(() => {
     fetchPokemonDetails();
   }, []);
+
+  const getPokemonId = (): number => {
+    let tmpName = pokemon.url;
+    tmpName = tmpName.slice(0, -1);
+    let id: number = parseInt(
+      tmpName.substring(tmpName.lastIndexOf("/") + 1, tmpName.length),
+      10
+    );
+    return id;
+  };
 
   if (pokeInfo === undefined) return null;
 
@@ -66,6 +77,7 @@ export const DetailsPage = (
       Alert.alert(error.message);
     }
   };
+  const id = getPokemonId();
 
   return (
     <ScrollView
@@ -75,7 +87,7 @@ export const DetailsPage = (
       <Image
         style={DetailsStyles.image}
         source={{
-          uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokeInfo.order}.png`,
+          uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`,
         }}
       />
       <TouchableOpacity

@@ -20,6 +20,7 @@ export const HomeStyles = StyleSheet.create({
   list: {
     paddingTop: 10,
     zIndex: -5,
+    marginBottom: 60
   },
   imageBackground: {
     width: 150,
@@ -28,8 +29,8 @@ export const HomeStyles = StyleSheet.create({
     justifyContent: "center",
   },
   image: {
-    width: 180,
-    height: 180
+    width: 120,
+    height: 120
   },
   card: {
     flex: 1,

@@ -24,8 +24,9 @@ npm start
 
 ## Description
 
-**PokeViewer** is a Pokedex app that lists all the pokemons and allows to see their details according to the [PokeApi](https://pokeapi.co/).
+**PokeViewer** is a Pokedex app that lists all the pokemons and allows to see their details according to the [PokeApi](https://pokeapi.co/). Feel free to search for the Pokemon you desire and share it's wikipedia link with your friends
 
+You can also change the limit of pokemons fetched by changing the FETCH_LIMIT constant in src/Home.tsx
 ## Library used in this project
 
 ### [Expo](https://docs.expo.io/)

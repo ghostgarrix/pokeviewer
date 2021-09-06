@@ -22,16 +22,14 @@ type HomePageProps = {
   route: RouteProp<AppStackParamList, AppStackRoutes.Home>;
 };
 
-const FETCH_LIMIT = 1118;
+const FETCH_LIMIT = 500;
 
 export const HomePage = (props: HomePageProps): React.ReactElement | null => {
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
   const [searchFeild, setSearchFeild] = useState<string>("");
   const [open, setOpen] = useState<boolean>(false);
   const [type, setType] = useState<string | null>(null);
-  const [items, setItems] = useState<TypeFilter[]>([
-    { value: "all", label: "All" },
-  ]);
+  const [items, setItems] = useState<TypeFilter[]>([]);
 
   const fetchAllPokemons = (): void => {
     fetch(`https://pokeapi.co/api/v2/pokemon?limit=${FETCH_LIMIT}`)
@@ -41,7 +39,7 @@ export const HomePage = (props: HomePageProps): React.ReactElement | null => {
   };
 
   const fetchPokemonsByType = (): void => {
-    if (type === "all") {
+    if (type === "all" || type === null) {
       fetchAllPokemons();
     } else {
       fetch(`https://pokeapi.co/api/v2/type/${type}`)
@@ -84,11 +82,21 @@ export const HomePage = (props: HomePageProps): React.ReactElement | null => {
     fetchTypes();
   }, []);
 
-  const redirectToDetails = (pokeName: string): void => {
+  const redirectToDetails = (pokemon: Pokemon): void => {
     Haptics.selectionAsync();
     props.navigation.navigate(AppStackRoutes.Details, {
-      pokeName,
+      pokemon
     });
+  };
+
+  const getPokemonId = (url: string): number => {
+    let tmpName = url;
+    tmpName = tmpName.slice(0, -1);
+    let id: number = parseInt(
+      tmpName.substring(tmpName.lastIndexOf("/") + 1, tmpName.length),
+      10
+    );
+    return id;
   };
 
   const filteredPokemons = pokemons.filter((pokemon) =>
@@ -97,32 +105,33 @@ export const HomePage = (props: HomePageProps): React.ReactElement | null => {
 
   const renderPokemon = ({
     item,
-    index,
   }: {
     item: Pokemon;
-    index: number;
-  }): React.ReactElement | null => (
-    <TouchableOpacity
-      style={HomeStyles.card}
-      onPress={(): void => redirectToDetails(item.name)}
-    >
-      <ImageBackground
-        source={require("../assets/pokeball.png")}
-        style={HomeStyles.imageBackground}
-        resizeMode="contain"
+  }): React.ReactElement | null => {
+    const id: number = getPokemonId(item.url);
+    return (
+      <TouchableOpacity
+        style={HomeStyles.card}
+        onPress={(): void => redirectToDetails(item)}
       >
-        <Image
-          style={HomeStyles.image}
-          source={{
-            uri: `https://img.pokemondb.net/sprites/omega-ruby-alpha-sapphire/dex/normal/${item.name}.png`,
-          }}
-        />
-      </ImageBackground>
-      <View style={HomeStyles.textContainer}>
-        <Text style={HomeStyles.text}>{item.name}</Text>
-      </View>
-    </TouchableOpacity>
-  );
+        <ImageBackground
+          source={require("../assets/pokeball.png")}
+          style={HomeStyles.imageBackground}
+          resizeMode="contain"
+        >
+          <Image
+            style={HomeStyles.image}
+            source={{
+              uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`,
+            }}
+          />
+        </ImageBackground>
+        <View style={HomeStyles.textContainer}>
+          <Text style={HomeStyles.text}>{item.name}</Text>
+        </View>
+      </TouchableOpacity>
+    );
+  };
 
   return (
     <View style={HomeStyles.container}>
