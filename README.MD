@@ -27,6 +27,10 @@ npm start
 **PokeViewer** is a Pokedex app that lists all the pokemons and allows to see their details according to the [PokeApi](https://pokeapi.co/). Feel free to search for the Pokemon you desire and share it's wikipedia link with your friends
 
 You can also change the limit of pokemons fetched by changing the FETCH_LIMIT constant in src/Home.tsx
+
+![ScreenShot1](assets/screenshot1.png)
+![ScreenShot2](assets/screenshot2.png)
+
 ## Library used in this project
 
 ### [Expo](https://docs.expo.io/)
@@ -40,8 +44,7 @@ You can also change the limit of pokemons fetched by changing the FETCH_LIMIT co
 ### [React Navigation](https://reactnavigation.org/docs/getting-started)
 
 > Routing and navigation for your React Native apps
-> [Read docs](https://reactnavigation.org/docs/getting-started)
-> [Try the demo app](https://github.com/react-navigation/react-navigation/tree/main/example)
+> [Read docs](https://reactnavigation.org/docs/getting-started) > [Try the demo app](https://github.com/react-navigation/react-navigation/tree/main/example)
 
 ### [Prettier](https://github.com/prettier/prettier#readme)
 
