@@ -15,6 +15,7 @@ import { PokeInfo } from "./types";
 import { PokemonDetailsField as Fields } from "../components/PokemonDetailsField";
 import { Entypo } from "@expo/vector-icons";
 import * as Haptics from "expo-haptics";
+import { fetchPokemonDetails, getLink } from "@src/utils/api";
 
 type DetailsPageProps = {
   navigation: StackNavigationProp<AppStackParamList, AppStackRoutes.Details>;
@@ -32,15 +33,8 @@ export const DetailsPage = (
 
   const [pokeInfo, setPokeInfo] = useState<PokeInfo>();
 
-  const fetchPokemonDetails = (): void => {
-    fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon.name}`)
-      .then((res) => res.json())
-      .then((details) => setPokeInfo(details))
-      .catch((error) => console.log(error));
-  };
-
   useEffect(() => {
-    fetchPokemonDetails();
+    fetchPokemonDetails(pokemon.name).then((response) => setPokeInfo(response));
   }, []);
 
   const getPokemonId = (): number => {
@@ -55,7 +49,7 @@ export const DetailsPage = (
 
   if (pokeInfo === undefined) return null;
 
-  const link = `https://en.wikipedia.org/wiki/${pokeInfo.name}`;
+  const link = getLink(pokeInfo.name);
 
   const share = async (link: string) => {
     try {
